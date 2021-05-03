@@ -3,7 +3,12 @@
 .DS_Store
 .idea
 *.iml
-.metadata/*
+.plugins
+.plugins\
+.metadata
+.metadata\
+.idea
+.idea\
 
 
 # Compiled class file
