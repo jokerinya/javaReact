@@ -1,0 +1,10 @@
+INDEX VERSION 1.131+D:\eclipseJavaReactAssignments\.metadata\.plugins\org.eclipse.jdt.core
+2331106064.index
+1342811584.index
+1528835833.index
+1004207502.index
+613499983.index
+1386590229.index
+3089879308.index
+4078532906.index
+2833544990.index

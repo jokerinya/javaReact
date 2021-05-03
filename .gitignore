@@ -3,6 +3,7 @@
 .DS_Store
 .idea
 *.iml
+.metadata/*
 
 
 # Compiled class file
