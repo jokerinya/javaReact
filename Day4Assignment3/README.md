@@ -16,7 +16,7 @@
 
 - Compiler must be 1.8 for WSC.
 
-![Photo Of Diagram](/day4assignment3.jpg)
+![Photo Of Diagram](./day4assignment3.jpg)
 
 # Gun 2 Odev 3
 
