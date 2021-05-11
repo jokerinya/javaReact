@@ -37,7 +37,7 @@
 * These positions cannot be repeated. The user is warned.
 
 ## Solution Model
-![Photo Of Model](./day6assignment2.jpg)
+![Photo Of Model](./day6assignment2.JPG)
 
 # Gun 6 Odev 2
 ## Bilgilendirme
