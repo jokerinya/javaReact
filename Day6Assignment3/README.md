@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Create your project named _["hrms"]()_ with Spring Boot.
+- Create your project named _["hrms"](https://github.com/jokerinya2013/javaReact/tree/master/hrms)_ with Spring Boot.
 - Write down the layers.
 - Type the api that will list the general job positions in the system.
 
@@ -16,6 +16,6 @@
 
 ## Gereklilikler
 
-- Spring Boot ile _["hrms"]()_ isimli projenizi oluşturunuz.
+- Spring Boot ile _["hrms"](https://github.com/jokerinya2013/javaReact/tree/master/hrms)_ isimli projenizi oluşturunuz.
 - Katmanları yazınız.
 - Sistemde bulunan genel iş pozisyonlarını listeleyecek api'yi yazınız.
