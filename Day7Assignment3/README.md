@@ -49,7 +49,11 @@
 
 - Project Structure
 
-![SS of SwaggerUI-2](structure-1.JPG)
+![SS of SwaggerUI-2](structure-1.jpg)
+
+- DB Model
+
+![DB Model](db-1.jpg)
 
 - [HRMS Project](https://github.com/jokerinya2013/javaReact/tree/master/hrms)
 
