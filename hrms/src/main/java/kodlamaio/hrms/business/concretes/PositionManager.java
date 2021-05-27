@@ -1,6 +1,7 @@
 package kodlamaio.hrms.business.concretes;
 
 import kodlamaio.hrms.business.abstracts.PositionService;
+import kodlamaio.hrms.core.utilities.results.*;
 import kodlamaio.hrms.dataAccess.abstracts.PositionDao;
 import kodlamaio.hrms.entities.concretes.Position;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,17 @@ public class PositionManager implements PositionService {
     }
 
     @Override
-    public List<Position> getAll() {
-        return this.positionDao.findAll();
+    public DataResult<List<Position>> getAll() {
+        return new SuccessDataResult<>(this.positionDao.findAll(), "Positions fetched.");
+    }
+
+    @Override
+    public Result add(Position position) {
+        String jobName = position.getPosition();
+        if (positionDao.findByPosition(jobName) != null) {
+            return new ErrorResult("Position has been entered before!");
+        }
+        this.positionDao.save(position);
+        return new SuccessResult("Position has been saved to DB");
     }
 }
