@@ -22,7 +22,7 @@
 
 ![SS of SwaggerUI-2](ui-2.jpg)
 
-# Gun 6 Odev 1
+# Gun 7 Odev 1
 
 ## Gereklilikler
 
