@@ -26,8 +26,8 @@ public class PositionManager implements PositionService {
 
     @Override
     public Result add(Position position) {
-        String jobName = position.getPosition();
-        if (positionDao.findByPosition(jobName) != null) {
+        String jobName = position.getPositionName();
+        if (positionDao.getByPositionName(jobName) != null) {
             return new ErrorResult("Position has been entered before!");
         }
         this.positionDao.save(position);

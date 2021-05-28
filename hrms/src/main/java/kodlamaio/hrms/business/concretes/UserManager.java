@@ -37,7 +37,7 @@ public class UserManager implements UserService {
     @Override
     public Result verifyEmail(Integer userId, String code) {
         VerifyCode verifyCode = this.verifyCodeDao.getByUserId(userId);
-        System.out.println(verifyCode.toString());
+//        System.out.println(verifyCode.toString());
 
         if (verifyCode.getCode().equals(code)){
             User user = this.userDao.getByUserId(userId);

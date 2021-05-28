@@ -15,9 +15,9 @@ import java.util.Objects;
 public class Position {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "position_id")
+    private int positionId;
 
-    @Column(name = "position")
-    private String position;
+    @Column(name = "position_name")
+    private String positionName;
 }

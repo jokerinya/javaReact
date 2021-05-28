@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface PositionDao extends JpaRepository<Position, Integer> {
-    Position findByPosition(String position);
+    Position getByPositionName(String positionName);
 }

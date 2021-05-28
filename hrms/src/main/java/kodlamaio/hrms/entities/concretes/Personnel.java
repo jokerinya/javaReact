@@ -17,12 +17,12 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Personnel extends User{
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "personnel_first_name")
+    private String personnelFirstName;
 
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "personnel_last_name")
+    private String personnelLastName;
 
-    @Column(name = "national_identity_no")
-    private String nationalIdentityNo;
+    @Column(name = "personnel_national_identity_no")
+    private String personnelNationalIdentityNo;
 }

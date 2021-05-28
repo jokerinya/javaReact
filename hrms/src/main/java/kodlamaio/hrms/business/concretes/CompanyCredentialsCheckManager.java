@@ -14,17 +14,17 @@ public class CompanyCredentialsCheckManager extends UserCredentialsCheckManager 
     public Result checkUserCredentials(User user) {
         Company company = (Company) user;
         // Name
-        String name = company.getName();
+        String name = company.getCompanyName();
         if (name == null || name.length() == 0){
             return new ErrorResult("Name cannot be empty!");
         }
         // Website
-        String webSite = company.getWebsite();
+        String webSite = company.getCompanyWebsite();
         if (webSite == null || webSite.length() == 0){
             return new ErrorResult("Website cannot be empty!");
         }
         // Phone
-        String phone = company.getPhone();
+        String phone = company.getCompanyPhone();
         if (phone == null || phone.length() == 0){
             return new ErrorResult("Phone cannot be empty!");
         }
