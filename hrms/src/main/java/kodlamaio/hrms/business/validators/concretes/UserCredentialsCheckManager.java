@@ -1,10 +1,10 @@
-package kodlamaio.hrms.business.concretes;
+package kodlamaio.hrms.business.validators.concretes;
 
-import kodlamaio.hrms.business.abstracts.UserCredentialsCheckService;
+import kodlamaio.hrms.business.validators.abstracts.UserCredentialsCheckService;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
-import kodlamaio.hrms.entities.concretes.User;
+import kodlamaio.hrms.entities.abstracts.User;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -4,7 +4,7 @@ import kodlamaio.hrms.business.abstracts.UserService;
 import kodlamaio.hrms.core.utilities.results.*;
 import kodlamaio.hrms.dataAccess.abstracts.UserDao;
 import kodlamaio.hrms.dataAccess.abstracts.VerifyCodeDao;
-import kodlamaio.hrms.entities.concretes.User;
+import kodlamaio.hrms.entities.abstracts.User;
 import kodlamaio.hrms.entities.concretes.VerifyCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

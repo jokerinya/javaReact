@@ -1,9 +1,9 @@
-package kodlamaio.hrms.business.concretes;
+package kodlamaio.hrms.business.validators.concretes;
 
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.concretes.Company;
-import kodlamaio.hrms.entities.concretes.User;
+import kodlamaio.hrms.entities.abstracts.User;
 import org.springframework.stereotype.Service;
 
 

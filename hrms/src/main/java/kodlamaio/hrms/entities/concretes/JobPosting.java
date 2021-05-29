@@ -1,16 +1,18 @@
 package kodlamaio.hrms.entities.concretes;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "job_postings")
 public class JobPosting {
     @Id
@@ -19,15 +21,16 @@ public class JobPosting {
     private int jobPostingId;
 
     // Company O->M
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id", referencedColumnName = "user_id")
+//    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne()
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private Company company;
     // Position O->M
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "position_id", referencedColumnName = "position_id")
     private Position position;
     // City O->M
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "city_id", referencedColumnName = "city_id")
     private City city;
 
@@ -43,9 +46,26 @@ public class JobPosting {
     @Column(name = "open_positions")
     private int openPositions;
 
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "last_application_date")
     private LocalDate lastApplicationDate;
 
     @Column(name = "is_active")
     private boolean isActive;
+
+    @Override
+    public String toString() {
+        return "JobPosting{" +
+                "jobPostingId=" + jobPostingId +
+                ", company=" + company +
+                ", position=" + position +
+                ", city=" + city +
+                ", description='" + description + '\'' +
+                ", minWage=" + minWage +
+                ", maxWage=" + maxWage +
+                ", openPositions=" + openPositions +
+                ", lastApplicationDate=" + lastApplicationDate +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

@@ -2,7 +2,7 @@ package kodlamaio.hrms.business.concretes;
 
 import kodlamaio.hrms.business.abstracts.JobSeekerCheckService;
 import kodlamaio.hrms.business.abstracts.JobSeekerService;
-import kodlamaio.hrms.business.abstracts.UserCredentialsCheckService;
+import kodlamaio.hrms.business.validators.abstracts.UserCredentialsCheckService;
 import kodlamaio.hrms.business.abstracts.UserNotificationService;
 import kodlamaio.hrms.core.utilities.results.*;
 import kodlamaio.hrms.dataAccess.abstracts.JobSeekerDao;

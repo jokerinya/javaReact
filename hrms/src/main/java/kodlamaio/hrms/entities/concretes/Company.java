@@ -1,9 +1,8 @@
 package kodlamaio.hrms.entities.concretes;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import kodlamaio.hrms.entities.abstracts.User;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "jobPostings"})
 @Table(name = "companies")
 @PrimaryKeyJoinColumn(name = "user_id")
-public class Company extends  User{
+public class Company extends User {
 
     @Column(name = "company_name")
     private String companyName;

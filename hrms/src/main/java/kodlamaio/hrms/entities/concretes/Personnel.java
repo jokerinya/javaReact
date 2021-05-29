@@ -1,5 +1,6 @@
 package kodlamaio.hrms.entities.concretes;
 
+import kodlamaio.hrms.entities.abstracts.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "personnels")
 @PrimaryKeyJoinColumn(name = "user_id")
-public class Personnel extends User{
+public class Personnel extends User {
 
     @Column(name = "personnel_first_name")
     private String personnelFirstName;
