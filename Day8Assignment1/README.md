@@ -38,7 +38,7 @@
 
 - Apis and Controllers
 
-![SS of SwaggerUI-1](controllers.JPG)
+![SS of SwaggerUI-1](controllers.jpg)
 
 - Project Structure
 
