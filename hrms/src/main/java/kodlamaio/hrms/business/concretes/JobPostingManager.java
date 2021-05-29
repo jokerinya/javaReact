@@ -6,7 +6,6 @@ import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
-import kodlamaio.hrms.dataAccess.abstracts.CompanyDao;
 import kodlamaio.hrms.dataAccess.abstracts.JobPostingDao;
 import kodlamaio.hrms.entities.concretes.JobPosting;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,23 +17,40 @@ import java.util.List;
 public class JobPostingManager implements JobPostingService {
 
     private JobPostingDao jobPostingDao;
-    private CompanyDao companyDao;
 
     @Autowired
-    public JobPostingManager(JobPostingDao jobPostingDao, CompanyDao companyDao) {
+    public JobPostingManager(JobPostingDao jobPostingDao) {
         this.jobPostingDao = jobPostingDao;
-        this.companyDao =  companyDao;
     }
 
     @Override
     public DataResult<List<JobPosting>> getAllActive() {
         return new SuccessDataResult<>
-                (this.jobPostingDao.findByIsActiveTrue(), "All job postings fetched.");
+                (this.jobPostingDao.findAllByActiveTrue(), "All active job postings fetched.");
+    }
+
+    @Override
+    public DataResult<List<JobPosting>> getAllActiveSortedByDate() {
+        return new SuccessDataResult<>
+            (this.jobPostingDao.findAllByActiveTrueOrderByLastApplicationDateAsc(), "Job postings date order.");
+    }
+
+    @Override
+    public DataResult<List<JobPosting>> getAllActiveWithCompanyId(int companyId) {
+        return new SuccessDataResult<>
+            (this.jobPostingDao.findAllByActiveTrueAndCompany_UserId(companyId), "Job postings from the company");
     }
 
     @Override
     public Result add(int companyId, JobPosting jobPosting) {
         return this.save(jobPosting);
+    }
+
+    @Override
+    public Result setPassive(int jobPostingId) {
+        JobPosting jobPosting = this.jobPostingDao.getOne(jobPostingId);
+        jobPosting.setActive(false);
+        return save(jobPosting);
     }
 
     public Result save(JobPosting jobPosting){

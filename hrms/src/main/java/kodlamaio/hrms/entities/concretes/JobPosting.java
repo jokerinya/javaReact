@@ -51,7 +51,8 @@ public class JobPosting {
     private LocalDate lastApplicationDate;
 
     @Column(name = "is_active")
-    private boolean isActive;
+    private boolean active;
+
 
     @Override
     public String toString() {
@@ -65,7 +66,7 @@ public class JobPosting {
                 ", maxWage=" + maxWage +
                 ", openPositions=" + openPositions +
                 ", lastApplicationDate=" + lastApplicationDate +
-                ", isActive=" + isActive +
+                ", isActive=" + active +
                 '}';
     }
 }

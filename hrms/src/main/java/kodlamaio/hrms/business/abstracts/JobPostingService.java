@@ -8,5 +8,8 @@ import java.util.List;
 
 public interface JobPostingService {
     DataResult<List<JobPosting>> getAllActive();
+    DataResult<List<JobPosting>> getAllActiveSortedByDate();
+    DataResult<List<JobPosting>> getAllActiveWithCompanyId(int companyId);
     Result add(int companyId, JobPosting jobPosting);
+    Result setPassive(int jobPostingId);
 }
