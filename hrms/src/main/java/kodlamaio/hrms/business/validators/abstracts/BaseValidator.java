@@ -1,7 +1,6 @@
 package kodlamaio.hrms.business.validators.abstracts;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class BaseValidator {
     public static boolean requiredString(String value) {

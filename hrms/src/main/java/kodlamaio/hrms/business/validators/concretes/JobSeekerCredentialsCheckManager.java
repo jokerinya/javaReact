@@ -1,5 +1,6 @@
 package kodlamaio.hrms.business.validators.concretes;
 
+import kodlamaio.hrms.business.validators.abstracts.BaseValidator;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.concretes.JobSeeker;
@@ -15,14 +16,13 @@ public class JobSeekerCredentialsCheckManager extends UserCredentialsCheckManage
     public Result checkUserCredentials(User user) {
         JobSeeker jobSeeker = (JobSeeker) user;
         // firstName & lastName
-        String firstName = jobSeeker.getFirstName();
-        String lastName = jobSeeker.getLastName();
-        if (firstName == null || lastName == null || firstName.length() == 0 || lastName.length() == 0){
+        if (!BaseValidator.requiredString(jobSeeker.getFirstName()) ||
+            !BaseValidator.requiredString(jobSeeker.getLastName())){
             return new ErrorResult("First name or last name cannot be empty!");
         }
         // Tc No
         String nationalIdentityNo = jobSeeker.getNationalIdentityNo();
-        if (nationalIdentityNo == null || nationalIdentityNo.length() != 11){
+        if (!BaseValidator.requiredString(nationalIdentityNo) || nationalIdentityNo.length() != 11){
             return new ErrorResult("National identity number must be 11 chars!");
         }
         // Birth date

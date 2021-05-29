@@ -6,7 +6,6 @@ import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.concretes.JobPosting;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class JobPostingCredentialsCheckManager {
     public static Result checkValid(JobPosting jobPosting){

@@ -1,5 +1,6 @@
 package kodlamaio.hrms.business.validators.concretes;
 
+import kodlamaio.hrms.business.validators.abstracts.BaseValidator;
 import kodlamaio.hrms.business.validators.abstracts.UserCredentialsCheckService;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
@@ -14,12 +15,12 @@ public class UserCredentialsCheckManager implements UserCredentialsCheckService 
     public Result checkUserCredentials(User user) {
         // Email
         String email = user.getEmail();
-        if(email == null || !isEmailValid(email)){
+        if(!BaseValidator.requiredString(email) || !isEmailValid(email)){
             return new ErrorResult("Email address error, please check your email address!");
         }
         // Password
         String password = user.getPassword();
-        if ((password == null) || (password.length() < 6)){
+        if (!BaseValidator.requiredString(password) || (password.length() < 6)){
             return new ErrorResult("Password should be at least 6 chars, please check your password!");
         }
         return new SuccessResult("Email and Password are valid!");
