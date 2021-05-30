@@ -42,7 +42,11 @@
 
 - Project Structure
 
-![SS of SwaggerUI-2](structure.jpg)
+![SS of Structure](structure.jpg)
+
+- DB Diagram
+
+![SS of Database](database.jpg)
 
 # Gun 8 Odev 1
 
