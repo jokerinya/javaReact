@@ -1,11 +1,12 @@
 package kodlamaio.hrms.business.concretes;
 
-import kodlamaio.hrms.business.abstracts.JobSeekerCheckService;
+import kodlamaio.hrms.business.validators.abstracts.JobSeekerCheckService;
 import kodlamaio.hrms.business.abstracts.JobSeekerService;
 import kodlamaio.hrms.business.validators.abstracts.UserCredentialsCheckService;
 import kodlamaio.hrms.business.abstracts.UserNotificationService;
 import kodlamaio.hrms.core.utilities.results.*;
 import kodlamaio.hrms.dataAccess.abstracts.JobSeekerDao;
+import kodlamaio.hrms.dataAccess.abstracts.UserDao;
 import kodlamaio.hrms.dataAccess.abstracts.VerifyCodeDao;
 import kodlamaio.hrms.entities.concretes.JobSeeker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.List;
 @Service
 public class JobSeekerManager implements JobSeekerService {
     private JobSeekerDao jobSeekerDao;
+    private UserDao userDao;
     private UserCredentialsCheckService userCredentialsCheckService;
     private UserNotificationService userNotificationService;
     private VerifyCodeDao verifyCodeDao;
@@ -27,12 +29,14 @@ public class JobSeekerManager implements JobSeekerService {
                             @Qualifier("jobSeekerCredentialsCheckManager") UserCredentialsCheckService userCredentialsCheckService,
                             UserNotificationService userNotificationService,
                             VerifyCodeDao verifyCodeDao,
-                            JobSeekerCheckService jobSeekerCheckService) {
+                            JobSeekerCheckService jobSeekerCheckService,
+                            UserDao userDao) {
         this.jobSeekerDao = jobSeekerDao;
         this.userCredentialsCheckService = userCredentialsCheckService;
         this.userNotificationService = userNotificationService;
         this.verifyCodeDao = verifyCodeDao;
         this.jobSeekerCheckService = jobSeekerCheckService;
+        this.userDao = userDao;
     }
 
     @Override
@@ -44,10 +48,10 @@ public class JobSeekerManager implements JobSeekerService {
     public Result add(JobSeeker jobSeeker) {
         if (userCredentialsCheckService.checkUserCredentials(jobSeeker) instanceof SuccessResult){
             // add to DB, before adding check National Identity Number or Email occurrences
-            if (jobSeekerDao.getByEmail(jobSeeker.getEmail()) != null){
+            if (this.userDao.findByEmail(jobSeeker.getEmail()) != null){
                 return new ErrorResult("Email is already used. Please check your email address!");
             }
-            if (jobSeekerDao.getByNationalIdentityNo(jobSeeker.getNationalIdentityNo()) != null){
+            if (this.jobSeekerDao.getByNationalIdentityNo(jobSeeker.getNationalIdentityNo()) != null){
                 return new ErrorResult("This ID number is already recorded please check it!");
             }
             // Check Mernis Record
@@ -63,6 +67,11 @@ public class JobSeekerManager implements JobSeekerService {
             return new SuccessResult("Person successfully added to DB, please activate by a link.");
         }
         return userCredentialsCheckService.checkUserCredentials(jobSeeker);
+    }
+
+    @Override
+    public DataResult<JobSeeker> getById(int userId) {
+        return new SuccessDataResult<>(this.jobSeekerDao.getByUserId(userId), "Job Seeker Details");
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class PositionManager implements PositionService {
@@ -25,9 +26,24 @@ public class PositionManager implements PositionService {
     }
 
     @Override
+    public Position getByPositionNameIfNotCreate(String positionName) {
+        Position position = this.positionDao.getByPositionName(positionName);
+        if (position != null){
+            return position;
+        }
+        // Means a new position
+        position = new Position();
+        position.setPositionName(positionName);
+        // Save to db
+        this.positionDao.save(position);
+        // refresh query to get all obj
+        return this.positionDao.getByPositionName(positionName);
+    }
+
+    @Override
     public Result add(Position position) {
-        String jobName = position.getPositionName();
-        if (positionDao.getByPositionName(jobName) != null) {
+        String jobName = position.getPositionName().toLowerCase(Locale.ROOT);
+        if (this.positionDao.getByPositionName(jobName) != null) {
             return new ErrorResult("Position has been entered before!");
         }
         this.positionDao.save(position);

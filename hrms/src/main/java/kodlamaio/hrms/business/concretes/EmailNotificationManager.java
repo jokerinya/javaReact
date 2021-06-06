@@ -1,6 +1,7 @@
 package kodlamaio.hrms.business.concretes;
 
 import kodlamaio.hrms.business.abstracts.UserNotificationService;
+import kodlamaio.hrms.business.abstracts.VerifyCodeService;
 import kodlamaio.hrms.dataAccess.abstracts.VerifyCodeDao;
 import kodlamaio.hrms.entities.abstracts.User;
 import kodlamaio.hrms.entities.concretes.VerifyCode;
@@ -10,11 +11,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailNotificationManager implements UserNotificationService {
 
-    private VerifyCodeDao verifyCodeDao;
+    private VerifyCodeService verifyCodeService;
 
     @Autowired
     public EmailNotificationManager(VerifyCodeDao verifyCodeDao) {
-        this.verifyCodeDao = verifyCodeDao;
+        this.verifyCodeService = verifyCodeService;
     }
 
     public boolean sendActivationLink(User user){
@@ -22,11 +23,9 @@ public class EmailNotificationManager implements UserNotificationService {
         int userId = user.getUserId();
 
         // Save verify code and user id to db
-        VerifyCode verifyCode = new VerifyCode();
-        verifyCode.setUserId(userId);
-        verifyCode.setCode(code);
-        verifyCodeDao.save(verifyCode);
+        this.verifyCodeService.addWithUserIdAndCode(userId, code);
 
+        // Send e-mail
         String link = "http://localhost:8080/api/verify/email/" + userId + "/" + code;
         System.out.println("Email has been sent to " + user.getEmail() + " with this link:\n" + link);
         return true;

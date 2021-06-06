@@ -1,6 +1,6 @@
 package kodlamaio.hrms.business.adapters;
 
-import kodlamaio.hrms.business.abstracts.JobSeekerCheckService;
+import kodlamaio.hrms.business.validators.abstracts.JobSeekerCheckService;
 import kodlamaio.hrms.entities.concretes.JobSeeker;
 import kodlamaio.hrms.mernis.ROIKPSPublicSoap;
 import org.springframework.stereotype.Service;

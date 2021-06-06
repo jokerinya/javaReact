@@ -1,4 +1,4 @@
-package kodlamaio.hrms.business.abstracts;
+package kodlamaio.hrms.business.validators.abstracts;
 
 import kodlamaio.hrms.entities.concretes.JobSeeker;
 

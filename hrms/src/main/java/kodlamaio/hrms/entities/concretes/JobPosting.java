@@ -8,7 +8,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -53,20 +54,4 @@ public class JobPosting {
     @Column(name = "is_active")
     private boolean active;
 
-
-    @Override
-    public String toString() {
-        return "JobPosting{" +
-                "jobPostingId=" + jobPostingId +
-                ", company=" + company +
-                ", position=" + position +
-                ", city=" + city +
-                ", description='" + description + '\'' +
-                ", minWage=" + minWage +
-                ", maxWage=" + maxWage +
-                ", openPositions=" + openPositions +
-                ", lastApplicationDate=" + lastApplicationDate +
-                ", isActive=" + active +
-                '}';
-    }
 }

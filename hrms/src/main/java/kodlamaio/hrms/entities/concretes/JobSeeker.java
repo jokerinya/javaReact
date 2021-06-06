@@ -1,19 +1,21 @@
 package kodlamaio.hrms.entities.concretes;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import kodlamaio.hrms.entities.abstracts.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler",
+        "graduatedSchools", "jobExperiences", "knownLanguages",
+        "technologies" , "forewords", "socialMediaAddress" })
 @Table(name = "job_seekers")
 @PrimaryKeyJoinColumn(name = "user_id")
 public class JobSeeker extends User {
@@ -29,5 +31,39 @@ public class JobSeeker extends User {
 
     @Column(name = "year_of_birth")
     private int yearOfBirth;
+
+    // GraduatedSchool <-> JobSeeker
+    @OneToMany(mappedBy = "jobSeeker",  fetch = FetchType.LAZY)
+    private Set<GraduatedSchool> graduatedSchools;
+
+    // JobExperience <-> JobSeeker
+    @OneToMany(mappedBy = "jobSeeker",  fetch = FetchType.LAZY)
+    private Set<JobExperience> jobExperiences;
+
+    // KnownLanguage <-> JobSeeker
+    @OneToMany(mappedBy = "jobSeeker", fetch = FetchType.LAZY)
+    private Set<KnownLanguage> knownLanguages;
+
+    // SocialMedia <-> JobSeeker
+    @OneToOne(mappedBy = "jobSeeker", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private SocialMediaAddress socialMediaAddress;
+
+    // Technology <-> JobSeeker
+    @ManyToMany
+    @JoinTable(
+            name = "used_technologies",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "technology_id"))
+    private Set<Technology> technologies;
+
+    // Foreword <-> JobSeeker
+    @OneToMany(mappedBy = "jobSeeker", fetch = FetchType.LAZY)
+    private Set<Foreword> forewords;
+
+    // JobSeekerImage <-> JobSeeker
+    @OneToOne(mappedBy = "jobSeeker", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private JobSeekerImage jobSeekerImage;
 
 }

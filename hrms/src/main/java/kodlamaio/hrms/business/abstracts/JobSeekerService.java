@@ -9,4 +9,5 @@ import java.util.List;
 public interface JobSeekerService {
     DataResult<List<JobSeeker>> getAll();
     Result add(JobSeeker jobSeeker);
+    DataResult<JobSeeker> getById(int userId);
 }

@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface PositionService {
     DataResult<List<Position>> getAll();
+    Position getByPositionNameIfNotCreate(String name);
     Result add(Position position);
 }

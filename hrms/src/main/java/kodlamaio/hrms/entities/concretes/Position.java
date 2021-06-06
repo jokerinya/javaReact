@@ -5,12 +5,14 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
-@Data
-@AllArgsConstructor
+@Setter
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "jobPostings"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "jobPostings", "jobExperiences"})
 @Table(name = "positions")
 public class Position {
     @Id
@@ -24,4 +26,8 @@ public class Position {
     // One to Many -> JobPosting
     @OneToMany(mappedBy = "position")
     private List<JobPosting> jobPostings;
+
+    // JobExperience <-> JobSeeker
+    @OneToMany(mappedBy = "position",  fetch = FetchType.LAZY)
+    private Set<JobExperience> jobExperiences;
 }
