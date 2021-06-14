@@ -11,5 +11,8 @@ public interface GraduatedSchoolService {
     DataResult<List<GraduatedSchool>> getByJobSeekerId(int userId);
     DataResult<List<GraduatedSchool>> getByJobSeekerIdOrderByGraduationDate(int userId);
     Result add(int jobSeekerId,GraduatedSchool graduatedSchool);
+    Result delete(int jobSeekerId, GraduatedSchool graduatedSchool);
+    Result update(int jobSeekerId, GraduatedSchool graduatedSchool);
+
 
 }

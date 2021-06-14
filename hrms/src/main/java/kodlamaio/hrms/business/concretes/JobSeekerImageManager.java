@@ -56,4 +56,15 @@ public class JobSeekerImageManager implements JobSeekerImageService {
         this.jobSeekerImageDao.save(jobSeekerImage);
         return new SuccessResult("Image Uploaded");
     }
+
+    @Override
+    public Result delete(int userId) {
+        JobSeekerImage jobSeekerImage = this.jobSeekerImageDao.getOne(userId);
+        JobSeeker jobSeeker = this.jobSeekerService.getById(userId).getData();
+        // set reference
+        jobSeeker.setJobSeekerImage(null);
+        // delete from db
+        this.jobSeekerImageDao.delete(jobSeekerImage);
+        return new SuccessResult("Image Deleted!");
+    }
 }

@@ -70,4 +70,25 @@ public class JobExperienceManager implements JobExperienceService {
         this.jobExperienceDao.save(jobExperience);
         return new SuccessResult("Job Experience has been added.");
     }
+
+    @Override
+    public Result delete(int jobSeekerId, JobExperience jobExperience) {
+        this.jobExperienceDao.delete(jobExperience);
+        return new SuccessResult("Job Experience has been deleted.");
+    }
+
+    @Override
+    public Result update(int jobSeekerId, JobExperience jobExperience) {
+        // get from db the older one
+        JobExperience oldJobExperience = this.jobExperienceDao.getOne(jobExperience.getJobExperienceId());
+        // set position, position connected to this obj with a foreign key
+        Position position = this.positionService.getByPositionNameIfNotCreate(jobExperience.getPosition().getPositionName());
+        oldJobExperience.setPosition(position);
+        oldJobExperience.setCompanyName(jobExperience.getCompanyName());
+        oldJobExperience.setStartDate(jobExperience.getStartDate());
+        oldJobExperience.setEndDate(jobExperience.getEndDate());
+        // save to db
+        this.jobExperienceDao.save(oldJobExperience);
+        return new SuccessResult("Job Experience has been updated!");
+    }
 }

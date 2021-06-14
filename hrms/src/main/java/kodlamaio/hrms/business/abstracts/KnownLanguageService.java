@@ -9,4 +9,6 @@ import java.util.List;
 public interface KnownLanguageService {
     DataResult<List<KnownLanguage>> getByJobSeekerId(int userId);
     Result add(int userId, KnownLanguage knownLanguage);
+    Result delete(int userId, KnownLanguage knownLanguage);
+    Result update(int userId, KnownLanguage knownLanguage);
 }

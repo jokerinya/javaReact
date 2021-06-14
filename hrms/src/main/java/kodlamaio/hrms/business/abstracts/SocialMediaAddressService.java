@@ -6,8 +6,7 @@ import kodlamaio.hrms.entities.concretes.SocialMediaAddress;
 
 public interface SocialMediaAddressService {
     DataResult<SocialMediaAddress> getByJobSeekerId(int userId);
-
     Result add(int userId, SocialMediaAddress socialMediaAddress);
-    Result addOnlyGithubAddress(int userId, String githubAddress);
-    Result addOnlyLinkedInAddress(int userId, String linkedInAddress);
+    Result update(int userId, SocialMediaAddress socialMediaAddress);
+    Result delete(int userId);
 }

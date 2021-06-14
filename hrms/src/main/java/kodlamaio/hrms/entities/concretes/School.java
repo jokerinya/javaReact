@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Setter
@@ -19,6 +20,7 @@ public class School {
     @Column(name = "school_id")
     private int schoolId;
 
+    @NotBlank
     @Column(name = "school_name")
     private String schoolName;
 

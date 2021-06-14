@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +21,7 @@ public class Position {
     @Column(name = "position_id")
     private int positionId;
 
+    @NotBlank
     @Column(name = "position_name")
     private String positionName;
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/socialMediaAddress")
+@CrossOrigin
 public class SocialMediaAddressesController {
     private SocialMediaAddressService socialMediaAddressService;
 
@@ -22,20 +23,21 @@ public class SocialMediaAddressesController {
         return this.socialMediaAddressService.getByJobSeekerId(jobSeekerId);
     };
 
-    @PostMapping("/{jobSeekerId}/add/")
-    Result add(@PathVariable int jobSeekerId,@RequestBody SocialMediaAddress socialMediaAddress){
+    @PostMapping("/{jobSeekerId}/add")
+    public Result add(@PathVariable int jobSeekerId,@RequestBody SocialMediaAddress socialMediaAddress){
         return this.socialMediaAddressService.add(jobSeekerId, socialMediaAddress);
     }
 
-    @PostMapping("/{jobSeekerId}/add/github")
-    Result addOnlyGithubAddress(@PathVariable int jobSeekerId,@RequestBody String githubAddress){
-        return this.socialMediaAddressService.addOnlyGithubAddress(jobSeekerId, githubAddress);
-    };
-
-    @PostMapping("/{jobSeekerId}/add/linkedIn")
-    Result addOnlyLinkedInAddress(@PathVariable int jobSeekerId,@RequestBody String linkedInAddress){
-        return this.socialMediaAddressService.addOnlyLinkedInAddress(jobSeekerId, linkedInAddress);
+    @PutMapping("/{jobSeekerId}/update")
+    public Result update(@PathVariable int jobSeekerId,@RequestBody SocialMediaAddress socialMediaAddress){
+        return this.socialMediaAddressService.update(jobSeekerId, socialMediaAddress);
     }
+
+    @DeleteMapping("/{jobSeekerId}/delete")
+    public Result delete(@PathVariable int jobSeekerId){
+        return this.socialMediaAddressService.delete(jobSeekerId);
+    }
+
 
 
 }

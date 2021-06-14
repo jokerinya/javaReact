@@ -9,11 +9,8 @@ import java.time.LocalDate;
 
 public class JobPostingCredentialsCheckManager extends BaseValidator{
     public static Result checkValid(JobPosting jobPosting){
-        if (!requiredInteger(jobPosting.getCompany().getUserId())){
-            return new ErrorResult("Company user id cannot be empty");
-        }
-        if (!requiredInteger(jobPosting.getPosition().getPositionId())){
-            return new ErrorResult("Position id cannot be empty");
+        if (!requiredString(jobPosting.getPosition().getPositionName())){
+            return new ErrorResult("Position name cannot be empty");
         }
         if (!requiredInteger(jobPosting.getCity().getCityId())){
             return new ErrorResult("City id cannot be empty");

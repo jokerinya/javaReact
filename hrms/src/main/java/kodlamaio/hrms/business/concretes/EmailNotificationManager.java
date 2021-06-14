@@ -14,7 +14,7 @@ public class EmailNotificationManager implements UserNotificationService {
     private VerifyCodeService verifyCodeService;
 
     @Autowired
-    public EmailNotificationManager(VerifyCodeDao verifyCodeDao) {
+    public EmailNotificationManager(VerifyCodeService verifyCodeService) {
         this.verifyCodeService = verifyCodeService;
     }
 

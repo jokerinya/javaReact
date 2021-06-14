@@ -26,11 +26,11 @@ public class TechnologyManager implements TechnologyService {
     @Override
     public DataResult<List<Technology>> getByJobSeekerId(int jobSeekerId) {
         JobSeeker jobSeeker = this.jobSeekerService.getById(jobSeekerId).getData();
-        if (jobSeeker != null){
+        if (jobSeeker == null){
+            return new ErrorDataResult<>(null, "User can't be found");
+        }
         return new SuccessDataResult<>
                 (this.technologyDao.getTechnologiesByJobSeekersIs(jobSeeker), "Technologies");
-        }
-        return new ErrorDataResult<>(null, "User can't be found");
     }
 
     @Override
@@ -79,5 +79,27 @@ public class TechnologyManager implements TechnologyService {
 
         this.technologyDao.save(oldTechnology);
         return new SuccessResult("Technology added to user's technologies");
+    }
+
+    @Override
+    public Result removeFromJobSeeker(int jobSeekerId, Technology technology) {
+        // check user
+        JobSeeker jobSeeker = this.jobSeekerService.getById(jobSeekerId).getData();
+        if (jobSeeker == null){
+            return new ErrorResult("User can't be found.");
+        }
+        // get technology obj from db
+        technology = this.technologyDao.getOne(technology.getTechnologyId());
+        // Set JobSeeker's technologies
+        Set<Technology> jobSeekerTechnologies = jobSeeker.getTechnologies();
+        jobSeekerTechnologies.remove(technology);
+        jobSeeker.setTechnologies(jobSeekerTechnologies);
+        // Set Technology's job seekers
+        Set<JobSeeker> technologyJobSeekers = technology.getJobSeekers();
+        technologyJobSeekers.remove(jobSeeker);
+        technology.setJobSeekers(technologyJobSeekers);
+        // save to db
+        this.technologyDao.save(technology);
+        return new SuccessResult("Technology has been removed from the user!");
     }
 }

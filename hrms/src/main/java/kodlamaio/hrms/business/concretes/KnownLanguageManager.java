@@ -55,4 +55,23 @@ public class KnownLanguageManager implements KnownLanguageService {
         this.knownLanguageDao.save(knownLanguage);
         return new SuccessResult("Known Language has been added.");
     }
+
+    @Override
+    public Result delete(int userId, KnownLanguage knownLanguage) {
+        this.knownLanguageDao.delete(knownLanguage);
+        return new SuccessResult("Known Language has been deleted.");
+    }
+
+    @Override
+    public Result update(int userId, KnownLanguage knownLanguage) {
+        KnownLanguage oldKnownLanguage = this.knownLanguageDao.getOne(knownLanguage.getKnownLanguageId());
+        // check language
+        Language language = this.languageService.getByLanguageNameIfNotCreate(knownLanguage.getLanguage().getLanguageName());
+        // set fields
+        oldKnownLanguage.setLanguage(language);
+        oldKnownLanguage.setLanguageLevel(knownLanguage.getLanguageLevel());
+        // save to db
+        this.knownLanguageDao.save(oldKnownLanguage);
+        return new SuccessResult("Known Language has been updated.");
+    }
 }

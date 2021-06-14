@@ -10,4 +10,5 @@ public interface TechnologyService {
     DataResult<List<Technology>> getByJobSeekerId(int jobSeekerId);
     Result add(Technology technology);
     Result addToJobSeeker(int jobSeekerId, Technology technology);
+    Result removeFromJobSeeker(int jobSeekerId, Technology technology);
 }

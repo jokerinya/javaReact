@@ -27,6 +27,7 @@ public class PositionManager implements PositionService {
 
     @Override
     public Position getByPositionNameIfNotCreate(String positionName) {
+        positionName = positionName.toLowerCase(Locale.ROOT);
         Position position = this.positionDao.getByPositionName(positionName);
         if (position != null){
             return position;

@@ -11,5 +11,7 @@ public interface JobPostingService {
     DataResult<List<JobPosting>> getAllActiveSortedByDate();
     DataResult<List<JobPosting>> getAllActiveWithCompanyId(int companyId);
     Result add(int companyId, JobPosting jobPosting);
-    Result setPassive(int jobPostingId);
+    Result update(int companyId, int jobPostingId, JobPosting jobPosting);
+    Result delete(int jobPostingId);
+    Result setPassive(int userId, int jobPostingId);
 }

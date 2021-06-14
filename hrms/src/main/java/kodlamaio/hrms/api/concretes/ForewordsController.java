@@ -1,9 +1,7 @@
 package kodlamaio.hrms.api.concretes;
 
 import kodlamaio.hrms.business.abstracts.ForewordService;
-import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
-import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.concretes.Foreword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/forewords")
+@CrossOrigin
 public class ForewordsController {
     private ForewordService forewordService;
 
@@ -36,6 +34,16 @@ public class ForewordsController {
     @PostMapping("/{jobSeekerId}/add")
     public ResponseEntity<?> add(@Valid @PathVariable int jobSeekerId, @Valid @RequestBody Foreword foreword){
         return ResponseEntity.ok(this.forewordService.add(jobSeekerId, foreword));
+    }
+
+    @PutMapping("/{jobSeekerId}/update")
+    public ResponseEntity<?> update(@Valid @PathVariable int jobSeekerId, @Valid @RequestBody Foreword foreword){
+        return ResponseEntity.ok(this.forewordService.update(jobSeekerId, foreword));
+    }
+
+    @DeleteMapping("/{jobSeekerId}/delete")
+    public ResponseEntity<?> delete(@Valid @PathVariable int jobSeekerId, @Valid @RequestBody Foreword foreword){
+        return ResponseEntity.ok(this.forewordService.delete(jobSeekerId, foreword));
     }
 
 

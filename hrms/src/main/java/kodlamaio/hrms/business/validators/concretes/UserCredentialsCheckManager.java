@@ -25,7 +25,7 @@ public class UserCredentialsCheckManager implements UserCredentialsCheckService 
         }
         return new SuccessResult("Email and Password are valid!");
     }
-    public boolean isEmailValid(String email) {
+    public static boolean isEmailValid(String email) {
         String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email);

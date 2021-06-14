@@ -1,0 +1,27 @@
+.my-footer {
+  width: inherit;
+  text-align: right;
+  background-color: beige;
+}
+
+a.my-footer-link {
+  all: unset;
+  cursor: pointer;
+}
+a.my-footer-link:hover,
+a.my-footer-link:active {
+  all: unset;
+  cursor: pointer;
+}
+
+.my-p-1em {
+  padding: 1em;
+}
+
+.my-m-1em {
+  margin: 1em;
+}
+
+.ui.fluid.container {
+  width: 95% !important;
+}

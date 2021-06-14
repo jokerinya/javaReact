@@ -8,4 +8,5 @@ import org.springframework.web.multipart.MultipartFile;
 public interface JobSeekerImageService {
     DataResult<JobSeekerImage> getByJobSeekerId(int userId);
     Result add(int userId, MultipartFile file);
+    Result delete(int userId);
 }

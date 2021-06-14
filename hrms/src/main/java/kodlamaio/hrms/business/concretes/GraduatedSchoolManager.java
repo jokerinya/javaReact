@@ -75,4 +75,28 @@ public class GraduatedSchoolManager implements GraduatedSchoolService {
         this.graduatedSchoolDao.save(graduatedSchool);
         return new SuccessResult("Education school added.");
     }
+
+    @Override
+    public Result delete(int jobSeekerId, GraduatedSchool graduatedSchool) {
+        this.graduatedSchoolDao.delete(graduatedSchool);
+        return new SuccessResult("Education school deleted");
+    }
+
+    @Override
+    public Result update(int jobSeekerId, GraduatedSchool graduatedSchool) {
+        // get db record
+        GraduatedSchool oldGraduatedSchool = this.graduatedSchoolDao.getOne(graduatedSchool.getGraduatedSchoolId());
+        // set new fields except jobSeeker and id fields
+        // School and Department
+        School school = this.schoolService.getBySchoolNameIfNotCreate(graduatedSchool.getSchool().getSchoolName());
+        oldGraduatedSchool.setSchool(school);
+        Department department = this.departmentService.getByDepartmentNameIfNotCreate(graduatedSchool.getDepartment().getDepartmentName());
+        oldGraduatedSchool.setDepartment(department);
+        // Dates
+        oldGraduatedSchool.setStartDate(graduatedSchool.getStartDate());
+        oldGraduatedSchool.setGraduationDate(graduatedSchool.getGraduationDate());
+        // save to db
+        this.graduatedSchoolDao.save(oldGraduatedSchool);
+        return new SuccessResult("Graduated School Updated");
+    }
 }

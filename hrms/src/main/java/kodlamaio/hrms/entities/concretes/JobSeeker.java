@@ -5,6 +5,10 @@ import kodlamaio.hrms.entities.abstracts.User;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Setter
@@ -12,7 +16,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler",
         "graduatedSchools", "jobExperiences", "knownLanguages",
         "technologies" , "forewords", "socialMediaAddress" })
@@ -20,15 +23,21 @@ import java.util.Set;
 @PrimaryKeyJoinColumn(name = "user_id")
 public class JobSeeker extends User {
 
+    @NotBlank
     @Column(name = "first_name")
     private String firstName;
 
+    @NotBlank
     @Column(name = "last_name")
     private String lastName;
 
+    @NotBlank
     @Column(name = "national_identity_no")
     private String nationalIdentityNo;
 
+    @NotNull
+    @Min(1900)
+    @Max(2025)
     @Column(name = "year_of_birth")
     private int yearOfBirth;
 

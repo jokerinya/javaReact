@@ -5,6 +5,7 @@ import kodlamaio.hrms.entities.abstracts.User;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Getter
@@ -17,12 +18,15 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "user_id")
 public class Company extends User {
 
+    @NotBlank
     @Column(name = "company_name")
     private String companyName;
 
+    @NotBlank
     @Column(name = "company_website")
     private String companyWebsite;
 
+    @NotBlank
     @Column(name = "company_phone")
     private String companyPhone;
 

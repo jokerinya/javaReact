@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -43,6 +44,7 @@ public class JobExperience {
     @Column(name = "end_date")
     private LocalDate endDate;
 
+    @NotBlank
     @Column(name = "company_name")
     private String companyName;
 

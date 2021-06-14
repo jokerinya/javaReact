@@ -10,4 +10,6 @@ public interface UserService {
     DataResult<List<User>> getAll();
     DataResult<User> getByEmail(String email);
     Result verifyEmail(Integer userId, String code);
+    Result updateEmail(int userId, String email);
+    Result updatePassword(int userId, String newPassword);
 }

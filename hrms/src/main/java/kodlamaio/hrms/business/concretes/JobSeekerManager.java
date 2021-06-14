@@ -1,13 +1,12 @@
 package kodlamaio.hrms.business.concretes;
 
+import kodlamaio.hrms.business.abstracts.UserService;
 import kodlamaio.hrms.business.validators.abstracts.JobSeekerCheckService;
 import kodlamaio.hrms.business.abstracts.JobSeekerService;
 import kodlamaio.hrms.business.validators.abstracts.UserCredentialsCheckService;
 import kodlamaio.hrms.business.abstracts.UserNotificationService;
 import kodlamaio.hrms.core.utilities.results.*;
 import kodlamaio.hrms.dataAccess.abstracts.JobSeekerDao;
-import kodlamaio.hrms.dataAccess.abstracts.UserDao;
-import kodlamaio.hrms.dataAccess.abstracts.VerifyCodeDao;
 import kodlamaio.hrms.entities.concretes.JobSeeker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,25 +17,22 @@ import java.util.List;
 @Service
 public class JobSeekerManager implements JobSeekerService {
     private JobSeekerDao jobSeekerDao;
-    private UserDao userDao;
     private UserCredentialsCheckService userCredentialsCheckService;
     private UserNotificationService userNotificationService;
-    private VerifyCodeDao verifyCodeDao;
     private JobSeekerCheckService jobSeekerCheckService;
+    private UserService userService;
 
     @Autowired
     public JobSeekerManager(JobSeekerDao jobSeekerDao,
                             @Qualifier("jobSeekerCredentialsCheckManager") UserCredentialsCheckService userCredentialsCheckService,
                             UserNotificationService userNotificationService,
-                            VerifyCodeDao verifyCodeDao,
-                            JobSeekerCheckService jobSeekerCheckService,
-                            UserDao userDao) {
+                            JobSeekerCheckService jobSeekerCheckService, UserService userService
+                            ) {
         this.jobSeekerDao = jobSeekerDao;
         this.userCredentialsCheckService = userCredentialsCheckService;
         this.userNotificationService = userNotificationService;
-        this.verifyCodeDao = verifyCodeDao;
         this.jobSeekerCheckService = jobSeekerCheckService;
-        this.userDao = userDao;
+        this.userService = userService;
     }
 
     @Override
@@ -48,7 +44,7 @@ public class JobSeekerManager implements JobSeekerService {
     public Result add(JobSeeker jobSeeker) {
         if (userCredentialsCheckService.checkUserCredentials(jobSeeker) instanceof SuccessResult){
             // add to DB, before adding check National Identity Number or Email occurrences
-            if (this.userDao.findByEmail(jobSeeker.getEmail()) != null){
+            if (this.userService.getByEmail(jobSeeker.getEmail()).getData() != null){
                 return new ErrorResult("Email is already used. Please check your email address!");
             }
             if (this.jobSeekerDao.getByNationalIdentityNo(jobSeeker.getNationalIdentityNo()) != null){
@@ -74,4 +70,19 @@ public class JobSeekerManager implements JobSeekerService {
         return new SuccessDataResult<>(this.jobSeekerDao.getByUserId(userId), "Job Seeker Details");
     }
 
+    @Override
+    public Result updateEmail(int userId, String email) {
+        if (this.jobSeekerDao.existsById(userId)){
+            return this.userService.updateEmail(userId, email);
+        }
+        return new ErrorResult("Job seeker can't be found!");
+    }
+
+    @Override
+    public Result updatePassword(int userId, String newPassword) {
+        if (this.jobSeekerDao.existsById(userId)) {
+            return this.userService.updatePassword(userId, newPassword);
+        }
+        return new ErrorResult("Job seeker can't be found!");
+    }
 }

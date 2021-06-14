@@ -42,4 +42,20 @@ public class ForewordManager implements ForewordService {
         this.forewordDao.save(foreword);
         return new SuccessResult("Foreword Recorded");
     }
+
+    @Override
+    public Result delete(int jobSeekerId, Foreword foreword) {
+        foreword = this.forewordDao.getOne(foreword.getForewordId());
+        this.forewordDao.delete(foreword);
+        return new SuccessResult("Foreword deleted");
+    }
+
+    @Override
+    public Result update(int jobSeekerId, Foreword foreword) {
+        String newBody = foreword.getForewordBody();
+        foreword = this.forewordDao.getOne(foreword.getForewordId());
+        foreword.setForewordBody(newBody);
+        this.forewordDao.save(foreword);
+        return new SuccessResult("Foreword updated");
+    }
 }

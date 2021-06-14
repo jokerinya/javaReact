@@ -5,6 +5,9 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 
@@ -35,6 +38,7 @@ public class JobPosting {
     @JoinColumn(name = "city_id", referencedColumnName = "city_id")
     private City city;
 
+    @NotBlank
     @Column(name = "description")
     private String description;
 
@@ -44,9 +48,11 @@ public class JobPosting {
     @Column(name = "max_wage")
     private int maxWage;
 
+    @Min(1)
     @Column(name = "open_positions")
     private int openPositions;
 
+    @NotNull
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "last_application_date")
     private LocalDate lastApplicationDate;

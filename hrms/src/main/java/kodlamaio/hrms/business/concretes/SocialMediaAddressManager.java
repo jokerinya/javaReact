@@ -30,39 +30,34 @@ public class SocialMediaAddressManager implements SocialMediaAddressService {
     @Override
     public Result add(int userId, SocialMediaAddress socialMediaAddress) {
         JobSeeker jobSeeker = this.jobSeekerService.getById(userId).getData();
-        if (jobSeeker != null){
-            return this.save(jobSeeker, socialMediaAddress);
+        if (jobSeeker == null){
+            return new ErrorResult("There is not a user!");
         }
-        // null
-        return new ErrorResult("There is not a user!");
-    }
-
-    @Override
-    public Result addOnlyGithubAddress(int userId, String githubAddress) {
-        SocialMediaAddress socialMediaAddress = this.getOrCreateANew(userId);
-        socialMediaAddress.setGithubAddress(githubAddress);
-        return add(userId, socialMediaAddress);
-    }
-
-    @Override
-    public Result addOnlyLinkedInAddress(int userId, String linkedInAddress) {
-        SocialMediaAddress socialMediaAddress = this.getOrCreateANew(userId);
-        socialMediaAddress.setLinkedinAddress(linkedInAddress);
-        return add(userId, socialMediaAddress);
-    }
-    // Check if any record before
-    private SocialMediaAddress getOrCreateANew(int userId){
-        SocialMediaAddress socialMediaAddress = this.socialMediaAddressDao.getByJobSeeker_UserId(userId);
-        if (socialMediaAddress == null){
-            socialMediaAddress = new SocialMediaAddress();
-        }
-        return socialMediaAddress;
-    }
-
-    private Result save(JobSeeker jobSeeker,SocialMediaAddress socialMediaAddress){
         socialMediaAddress.setJobSeeker(jobSeeker);
         this.socialMediaAddressDao.save(socialMediaAddress);
-        return new SuccessResult("Saved to Db");
+        return new SuccessResult("Added to DB");
+    }
+
+    @Override
+    public Result update(int userId, SocialMediaAddress socialMediaAddress) {
+        SocialMediaAddress oldDocialMediaAddress = this.socialMediaAddressDao.getOne(userId);
+        // Set fields
+        oldDocialMediaAddress.setGithubAddress(socialMediaAddress.getGithubAddress());
+        oldDocialMediaAddress.setLinkedinAddress(socialMediaAddress.getLinkedinAddress());
+        // save
+        this.socialMediaAddressDao.save(oldDocialMediaAddress);
+        return new SuccessResult("Social media accounts updated!");
+    }
+
+
+    @Override
+    public Result delete(int userId) {
+        SocialMediaAddress socialMediaAddress = this.socialMediaAddressDao.getOne(userId);
+        // make JobSeeker Reference empty too
+        JobSeeker jobSeeker = this.jobSeekerService.getById(userId).getData();
+        jobSeeker.setSocialMediaAddress(null);
+        this.socialMediaAddressDao.delete(socialMediaAddress);
+        return new SuccessResult("All social media account names have been deleted!");
     }
 
 }

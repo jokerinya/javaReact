@@ -3,7 +3,6 @@ package kodlamaio.hrms.api.concretes;
 import kodlamaio.hrms.business.abstracts.TechnologyService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
-import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entities.concretes.Technology;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +19,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/technologies")
+@CrossOrigin
 public class TechnologiesController {
     private TechnologyService technologyService;
 
@@ -36,6 +36,11 @@ public class TechnologiesController {
     @PostMapping("/{jobSeekerId}/add")
     public ResponseEntity<?> addToJobSeeker(@PathVariable int jobSeekerId, @Valid @RequestBody Technology technology){
         return ResponseEntity.ok(this.technologyService.addToJobSeeker(jobSeekerId, technology));
+    }
+
+    @DeleteMapping("/{jobSeekerId}/delete")
+    public ResponseEntity<?> removeFromJobSeeker(@PathVariable int jobSeekerId,@Valid @RequestBody Technology technology){
+        return ResponseEntity.ok(this.technologyService.removeFromJobSeeker(jobSeekerId, technology));
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

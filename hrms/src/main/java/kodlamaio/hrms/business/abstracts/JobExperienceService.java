@@ -11,5 +11,7 @@ public interface JobExperienceService {
     DataResult<List<JobExperience>> getByJobSeekerId(int userId);
     DataResult<List<JobExperience>> getByJobSeekerIdOrderByEndDate(int userId);
     Result add(int jobSeekerId, JobExperience jobExperience);
+    Result delete(int jobSeekerId, JobExperience jobExperience);
+    Result update(int jobSeekerId, JobExperience jobExperience);
 
 }
