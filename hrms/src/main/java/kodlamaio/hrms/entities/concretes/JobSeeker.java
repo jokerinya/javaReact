@@ -5,10 +5,7 @@ import kodlamaio.hrms.entities.abstracts.User;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.Set;
 
 @Setter
@@ -31,7 +28,7 @@ public class JobSeeker extends User {
     @Column(name = "last_name")
     private String lastName;
 
-    @NotBlank
+    @Size(min = 11, max = 11, message = "Identity No must be 11 characters")
     @Column(name = "national_identity_no")
     private String nationalIdentityNo;
 

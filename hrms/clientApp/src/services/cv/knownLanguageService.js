@@ -17,8 +17,11 @@ export default class KnownLanguageService {
 }
    */
 
-  add(userId, knownLanguage){
-    return axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/knownLanguages/${userId}/add`, knownLanguage);
+  add(userId, knownLanguage) {
+    return axios.post(
+      `${process.env.REACT_APP_BACKEND_API_URL}/knownLanguages/${userId}/add`,
+      knownLanguage
+    );
   }
 
   /**
@@ -32,9 +35,11 @@ export default class KnownLanguageService {
 }
    */
 
-  delete(userId, knownLanguage){
+  delete(userId, knownLanguage) {
     return axios.delete(
-        `${process.env.REACT_APP_BACKEND_API_URL}/knownLanguages/${userId}/delete`, {data: knownLanguage});
+      `${process.env.REACT_APP_BACKEND_API_URL}/knownLanguages/${userId}/delete`,
+      { data: knownLanguage }
+    );
   }
 
   /**
@@ -47,10 +52,10 @@ export default class KnownLanguageService {
   "languageLevel": 2
 }
    */
-  update(userId, knownLanguage){
+  update(userId, knownLanguage) {
     return axios.put(
-        `${process.env.REACT_APP_BACKEND_API_URL}/knownLanguages/${userId}/update`, knownLanguage);
+      `${process.env.REACT_APP_BACKEND_API_URL}/knownLanguages/${userId}/update`,
+      knownLanguage
+    );
   }
-
-
 }

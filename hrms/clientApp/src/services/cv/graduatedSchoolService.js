@@ -7,9 +7,11 @@ export default class GraduatedSchoolService {
     );
   }
 
-  delete(userId, graduatedSchool){
+  delete(userId, graduatedSchool) {
     return axios.delete(
-        `${process.env.REACT_APP_BACKEND_API_URL}/graduatedSchools/${userId}/delete`, {data:graduatedSchool});
+      `${process.env.REACT_APP_BACKEND_API_URL}/graduatedSchools/${userId}/delete`,
+      { data: graduatedSchool }
+    );
   }
   /**
    * add method sample object requirement
@@ -24,9 +26,11 @@ export default class GraduatedSchoolService {
   "startDate": "2015-06-01"
 }
    */
-  add(userId, graduatedSchool){
+  add(userId, graduatedSchool) {
     return axios.post(
-        `${process.env.REACT_APP_BACKEND_API_URL}/graduatedSchools/${userId}/add`, graduatedSchool)
+      `${process.env.REACT_APP_BACKEND_API_URL}/graduatedSchools/${userId}/add`,
+      graduatedSchool
+    );
   }
 
   /**
@@ -43,7 +47,10 @@ export default class GraduatedSchoolService {
   "startDate": "2014-06-01"
 }
    */
-  update(userId, graduatedSchool){
-    return axios.put(`${process.env.REACT_APP_BACKEND_API_URL}/graduatedSchools/${userId}/update`, graduatedSchool)
+  update(userId, graduatedSchool) {
+    return axios.put(
+      `${process.env.REACT_APP_BACKEND_API_URL}/graduatedSchools/${userId}/update`,
+      graduatedSchool
+    );
   }
 }

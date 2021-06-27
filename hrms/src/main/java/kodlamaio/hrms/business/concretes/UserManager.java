@@ -42,7 +42,7 @@ public class UserManager implements UserService {
 
 
     @Override
-    public Result verifyEmail(Integer userId, String code) {
+    public Result verifyEmailWithCode(Integer userId, String code) {
         VerifyCode verifyCode = this.verifyCodeService.getByUserId(userId).getData();
         // check if db code and request code are equal
         if (verifyCode.getCode().equals(code)){
@@ -52,6 +52,16 @@ public class UserManager implements UserService {
             return new SuccessResult("Email is activated!");
         }
         return new ErrorResult("An Error Occurred!");
+    }
+
+    @Override
+    public Result verifyEmailDirectly(User user) {
+        // get from db
+        user = this.userDao.getOne(user.getUserId());
+        // set email
+        user.setEmailIsVerified(true);
+        this.userDao.save(user);
+        return new SuccessResult("Email is activated!");
     }
 
     @Override

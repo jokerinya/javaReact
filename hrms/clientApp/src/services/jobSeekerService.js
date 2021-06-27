@@ -6,6 +6,11 @@ export default class JobSeekerService {
       `${process.env.REACT_APP_BACKEND_API_URL}/jobseekers/${userId}`
     );
   }
+  getAll() {
+    return axios.get(
+      `${process.env.REACT_APP_BACKEND_API_URL}/jobseekers/getall`
+    );
+  }
 
   /**
    * Add demo obj
@@ -18,16 +23,24 @@ export default class JobSeekerService {
   "yearOfBirth": 1989
 }
    */
-  add(jobSeeker){
-    return axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/jobseekers/add`, jobSeeker);
+  add(jobSeeker) {
+    return axios.post(
+      `${process.env.REACT_APP_BACKEND_API_URL}/jobseekers/add`,
+      jobSeeker
+    );
   }
 
-  updateEmail(userId, email){
-    return axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/jobseekers/${userId}/updateEmail`, email);
+  updateEmail(userId, email) {
+    return axios.post(
+      `${process.env.REACT_APP_BACKEND_API_URL}/jobseekers/${userId}/updateEmail`,
+      email
+    );
   }
 
-  updatePassword(userId, password){
-    return axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/jobseekers/${userId}/updateEmail`, password);
+  updatePassword(userId, password) {
+    return axios.post(
+      `${process.env.REACT_APP_BACKEND_API_URL}/jobseekers/${userId}/updateEmail`,
+      password
+    );
   }
-
 }

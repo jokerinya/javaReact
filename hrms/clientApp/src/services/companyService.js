@@ -8,7 +8,9 @@ export default class CompanyService {
   }
 
   getByCompanyId(userId) {
-    return axios.get(`${process.env.REACT_APP_BACKEND_API_URL}/companies/${userId}`);
+    return axios.get(
+      `${process.env.REACT_APP_BACKEND_API_URL}/companies/${userId}`
+    );
   }
 
   /**
@@ -23,8 +25,11 @@ export default class CompanyService {
 }
    */
 
-  add(company){
-    return axios.post(`${process.env.REACT_APP_BACKEND_API_URL}/companies/add`, company);
+  add(company) {
+    return axios.post(
+      `${process.env.REACT_APP_BACKEND_API_URL}/companies/add`,
+      company
+    );
   }
 
   /**
@@ -36,15 +41,24 @@ export default class CompanyService {
 }
    */
 
-  updateFields(userId, company){
-    return axios.put(`${process.env.REACT_APP_BACKEND_API_URL}/companies/${userId}/updateFields`, company);
+  updateFields(userId, company) {
+    return axios.put(
+      `${process.env.REACT_APP_BACKEND_API_URL}/companies/${userId}/updateFields`,
+      company
+    );
   }
 
-  updatePassword(userId, newPassword){
-    return axios.put(`${process.env.REACT_APP_BACKEND_API_URL}/companies/${userId}/updatePassword`, newPassword);
+  updatePassword(userId, newPassword) {
+    return axios.put(
+      `${process.env.REACT_APP_BACKEND_API_URL}/companies/${userId}/updatePassword`,
+      newPassword
+    );
   }
 
-  updateEmail(userId, newEmail){
-    return axios.put(`${process.env.REACT_APP_BACKEND_API_URL}/companies/${userId}/updateEmail`, newEmail);
+  updateEmail(userId, newEmail) {
+    return axios.put(
+      `${process.env.REACT_APP_BACKEND_API_URL}/companies/${userId}/updateEmail`,
+      newEmail
+    );
   }
 }

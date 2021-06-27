@@ -57,7 +57,14 @@ public class JobPosting {
     @Column(name = "last_application_date")
     private LocalDate lastApplicationDate;
 
-    @Column(name = "is_active")
+    @Column(name = "is_remote", columnDefinition = "boolean default false")
+    private boolean isRemote;
+
+
+    @Column(name = "is_part_time", columnDefinition = "boolean default false")
+    private boolean isPartTime;
+
+    @Column(name = "is_active", columnDefinition = "boolean default false")
     private boolean active;
 
 }

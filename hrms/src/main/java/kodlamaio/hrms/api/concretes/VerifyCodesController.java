@@ -19,6 +19,6 @@ public class VerifyCodesController {
 
     @GetMapping("/email/{userId}/{code}")
     public Result verifyEmail(@PathVariable("userId") Integer userId, @PathVariable("code") String code){
-        return this.userService.verifyEmail(userId, code);
+        return this.userService.verifyEmailWithCode(userId, code);
     }
 }

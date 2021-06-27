@@ -9,7 +9,8 @@ import java.util.List;
 public interface UserService {
     DataResult<List<User>> getAll();
     DataResult<User> getByEmail(String email);
-    Result verifyEmail(Integer userId, String code);
+    Result verifyEmailWithCode(Integer userId, String code);
+    Result verifyEmailDirectly(User user);
     Result updateEmail(int userId, String email);
     Result updatePassword(int userId, String newPassword);
 }

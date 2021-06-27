@@ -18,14 +18,18 @@ export default class JobExperienceService {
   "startDate": "2021-12-09"
 }
    */
-  add(userId, jobExperience){
+  add(userId, jobExperience) {
     return axios.post(
-        `${process.env.REACT_APP_BACKEND_API_URL}/jobExperiences/${userId}/add`, jobExperience)
+      `${process.env.REACT_APP_BACKEND_API_URL}/jobExperiences/${userId}/add`,
+      jobExperience
+    );
   }
 
-  delete(userId, jobExperience){
+  delete(userId, jobExperience) {
     return axios.delete(
-        `${process.env.REACT_APP_BACKEND_API_URL}/jobExperiences/${userId}/delete`, {data: jobExperience})
+      `${process.env.REACT_APP_BACKEND_API_URL}/jobExperiences/${userId}/delete`,
+      { data: jobExperience }
+    );
   }
 
   /**
@@ -41,9 +45,10 @@ export default class JobExperienceService {
 }
    */
 
-  update(userId, jobExperience){
+  update(userId, jobExperience) {
     return axios.put(
-        `${process.env.REACT_APP_BACKEND_API_URL}/jobExperiences/${userId}/update`, jobExperience
-    )
+      `${process.env.REACT_APP_BACKEND_API_URL}/jobExperiences/${userId}/update`,
+      jobExperience
+    );
   }
 }

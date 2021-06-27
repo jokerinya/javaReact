@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,47 +32,60 @@ public class JobPostingsController {
     }
 
     @GetMapping("/getAllActive")
-    public ResponseEntity<?> getAllActive(){
+    public ResponseEntity<?> getAllActive() {
         return ResponseEntity.ok(this.jobPostingService.getAllActive());
     }
 
     @GetMapping("/getAllActiveSortedByDate")
-    public ResponseEntity<?> getAllActiveSortedByDate(){
+    public ResponseEntity<?> getAllActiveSortedByDate() {
         return ResponseEntity.ok(this.jobPostingService.getAllActiveSortedByDate());
     }
 
+    @GetMapping("/{jobPostingId}")
+    public ResponseEntity<?> getById(@PathVariable int jobPostingId) {
+        return ResponseEntity.ok(this.jobPostingService.getById(jobPostingId));
+    }
+
     @GetMapping("/{companyId}/getAllActive")
-    public ResponseEntity<?> getAllActiveWithCompanyId(@PathVariable int companyId){
+    public ResponseEntity<?> getAllActiveWithCompanyId(@PathVariable int companyId) {
         return ResponseEntity.ok(this.jobPostingService.getAllActiveWithCompanyId(companyId));
     }
 
+    // CompanyId - CityId - PositionId
+    @GetMapping("/getAllFiltered")
+    public ResponseEntity<?> getAllActiveFiltered(
+            @RequestParam(required = false) Integer companyId,
+            @RequestParam(required = false) Integer cityId,
+            @RequestParam(required = false) Integer positionId) {
+        return ResponseEntity.ok(
+                this.jobPostingService.getAllFiltered(companyId, cityId, positionId));
+    }
+
     @PostMapping("/{companyId}/add")
-    public ResponseEntity<?> add(@PathVariable int companyId,@Valid @RequestBody JobPosting jobPosting){
+    public ResponseEntity<?> add(@PathVariable int companyId, @Valid @RequestBody JobPosting jobPosting) {
         return ResponseEntity.ok(this.jobPostingService.add(companyId, jobPosting));
     }
 
     @PutMapping("/{companyId}/update/{jobPostingId}")
-    public ResponseEntity<?> update(@PathVariable int companyId,@PathVariable int jobPostingId,@Valid @RequestBody JobPosting jobPosting){
+    public ResponseEntity<?> update(@PathVariable int companyId, @PathVariable int jobPostingId, @Valid @RequestBody JobPosting jobPosting) {
         return ResponseEntity.ok(this.jobPostingService.update(companyId, jobPostingId, jobPosting));
     }
 
     @GetMapping("/{companyId}/setPassive")
-    public ResponseEntity<?> setPassive(@PathVariable int companyId, @RequestParam int jobPostingId){
+    public ResponseEntity<?> setPassive(@PathVariable int companyId, @RequestParam int jobPostingId) {
         return ResponseEntity.ok(this.jobPostingService.setPassive(companyId, jobPostingId));
     }
 
     @DeleteMapping("/{companyId}/delete/{jobPostingId}")
-    public ResponseEntity<?> delete(@PathVariable int companyId, @PathVariable int jobPostingId){
+    public ResponseEntity<?> delete(@PathVariable int companyId, @PathVariable int jobPostingId) {
         return ResponseEntity.ok(this.jobPostingService.delete(jobPostingId));
     }
 
-
-
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ErrorDataResult<Object> handleValidationException(@NotNull MethodArgumentNotValidException exceptions){
+    public ErrorDataResult<Object> handleValidationException(@NotNull MethodArgumentNotValidException exceptions) {
         Map<String, String> validationErrors = new HashMap<>();
-        for (FieldError fieldError : exceptions.getBindingResult().getFieldErrors()){
+        for (FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
             validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
         return new ErrorDataResult<>(validationErrors, "Errors");

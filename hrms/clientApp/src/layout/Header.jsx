@@ -1,34 +1,71 @@
 import React, { useState } from 'react';
-import { Button, Menu, Icon, Container } from 'semantic-ui-react';
+import { useHistory } from 'react-router-dom';
+import { Menu, Container } from 'semantic-ui-react';
+import SingedIn from './SingedIn';
+import SignedOut from './SignedOut';
 
 export default function Header() {
   const [activeItem, setActiveItem] = useState('home');
+  const [auth, setAuth] = useState(false);
+  const history = useHistory();
+
+  const handleHomeClick = () => {
+    setActiveItem('home');
+    history.push('/');
+  };
+
+  const handleCompaniesClick = () => {
+    setActiveItem('companies');
+    history.push('/companies');
+  };
+
+  const handleJobSeekerClick = () => {
+    setActiveItem('jobSeekers');
+    history.push('/jobSeekers');
+  };
+
+  const handleLoginClick = () => {
+    setAuth(true);
+    history.push('/login');
+  };
+
+  const handleRegisterClick = () => {
+    setAuth(true);
+    history.push('/register');
+  };
+
+  const handleSignOut = () => {
+    setAuth(false);
+    history.replace('/');
+  };
+
   return (
     <Container>
-      <Menu size='large'>
+      <Menu size='large' stackable>
         <Menu.Item
-          name='home'
+          name='Jobs'
           active={activeItem === 'home'}
-          onClick={() => setActiveItem('home')}
+          onClick={() => handleHomeClick()}
         />
         <Menu.Item
-          name='job search'
-          active={activeItem === 'job search'}
-          onClick={() => setActiveItem('job search')}
+          name='Job Seekers'
+          active={activeItem === 'jobSeekers'}
+          onClick={() => handleJobSeekerClick()}
+        />
+        <Menu.Item
+          name='Companies'
+          active={activeItem === 'companies'}
+          onClick={() => handleCompaniesClick()}
         />
         <Menu.Menu position='right'>
-          <Menu.Item>
-            <Button primary>
-              <Icon name='address card' />
-              Sign Up
-            </Button>
-          </Menu.Item>
-          <Menu.Item>
-            <Button primary>
-              <Icon name='pencil alternate' />
-              Login
-            </Button>
-          </Menu.Item>
+          {auth ? (
+            <SingedIn signOut={handleSignOut} />
+          ) : (
+            <SignedOut
+              login={handleLoginClick}
+              register={handleRegisterClick}
+            />
+          )}
         </Menu.Menu>
       </Menu>
     </Container>

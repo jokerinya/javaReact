@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import CompanyService from '../../services/companyService';
 
-export default function CompanyFilter() {
+export default function CompanyFilter(props) {
   const [companies, setCompanies] = useState([]);
 
   const companyOptions = companies.map((company) => ({
@@ -24,13 +24,14 @@ export default function CompanyFilter() {
 
   function getCompanyId(event, data) {
     // Select Company id, later we will send it to redux for re render
-    console.log(data.value);
+    props.getCompanyId(data.value);
   }
 
   return (
     <>
       <Dropdown
         placeholder='Select Position'
+        clearable
         fluid
         search
         selection

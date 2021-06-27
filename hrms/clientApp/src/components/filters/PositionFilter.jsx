@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import PositionService from '../../services/positionService';
-import TextEditorService from '../../utils/textEditorService';
+import TextEditorService from '../../utils/textFormatting/textEditorService';
 
-export default function PositionFilter() {
+export default function PositionFilter(props) {
   const [positions, setPositions] = useState([]);
 
   const positionOptions = positions.map((position) => ({
@@ -13,25 +13,22 @@ export default function PositionFilter() {
   }));
 
   useEffect(() => {
-    let mounted = true;
     let positionService = new PositionService();
     positionService.getAll().then((result) => {
-      if (mounted) {
-        setPositions(result.data.data);
-      }
+      setPositions(result.data.data);
     });
-    return () => (mounted = false);
-  }, []);
+  }, [setPositions]);
 
   function getPositionId(event, data) {
     // Select position id, later we will send it to redux for re render
-    console.log(data.value);
+    props.getPositionId(data.value);
   }
 
   return (
     <>
       <Dropdown
         placeholder='Select Position'
+        clearable
         fluid
         search
         selection

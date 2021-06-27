@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import CityService from '../../services/cityService';
 
-export default function CityFilter() {
+export default function CityFilter(props) {
   const [cities, setCities] = useState([]);
 
   const cityOptions = cities.map((city) => ({
@@ -12,25 +12,22 @@ export default function CityFilter() {
   }));
 
   useEffect(() => {
-    let mounted = true;
     let cityService = new CityService();
     cityService.getAll().then((result) => {
-      if (mounted) {
-        setCities(result.data.data);
-      }
+      setCities(result.data.data);
     });
-    return () => (mounted = false);
   }, []);
 
   function getCityId(event, data) {
     // Select city id, later we will send it to redux for re render
-    console.log(data.value);
+    props.getCityId(data.value);
   }
 
   return (
     <>
       <Dropdown
         placeholder='Select City'
+        clearable
         fluid
         search
         selection

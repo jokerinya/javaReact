@@ -4,7 +4,7 @@ import { Container, Icon } from 'semantic-ui-react';
 export default function Footer() {
   return (
     <Container>
-      <div className='my-footer'>
+      <div className='my-footer my-mt-1rem'>
         <hr />
         <span>Made by Jokerinya-2021</span>
         <a

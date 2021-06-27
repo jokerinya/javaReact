@@ -1,44 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import JobPostingService from '../../services/jobPostingService';
-import { Icon, Menu, Table } from 'semantic-ui-react';
-import TextEditorService from '../../utils/textEditorService';
+import { Button, Icon, Menu, Table } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import CompanyService from '../../services/companyService';
 
-export default function JobsList() {
-  const [jobPostings, setJobPostings] = useState([]);
+function CompaniesList() {
+  const [companies, setCompanies] = useState([]);
 
   useEffect(() => {
-    let jobPostingService = new JobPostingService();
-    jobPostingService.getJobPostingsAll().then((result) => {
-      setJobPostings(result.data.data);
+    let companyService = new CompanyService();
+    companyService.getAll().then((result) => {
+      setCompanies(result.data.data);
     });
   }, []);
 
   return (
     <>
+      <h2 style={{ textAlign: 'center' }}>Companies List</h2>
       <Table celled>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Company Name</Table.HeaderCell>
-            <Table.HeaderCell>Position Name</Table.HeaderCell>
-            <Table.HeaderCell>City</Table.HeaderCell>
-            <Table.HeaderCell>Description</Table.HeaderCell>
-            <Table.HeaderCell>Min Wage</Table.HeaderCell>
+            <Table.HeaderCell>Web Site</Table.HeaderCell>
+            <Table.HeaderCell>Email</Table.HeaderCell>
+            <Table.HeaderCell>Details</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
           {/* js */}
-          {jobPostings.map((jobPosting) => (
-            <Table.Row key={jobPosting.jobPostingId}>
-              <Table.Cell>
-                {TextEditorService.capitalize(jobPosting.company.companyName)}
+          {companies.map((company) => (
+            <Table.Row key={company.userId}>
+              <Table.Cell style={{ textTransform: 'capitalize' }}>
+                {company.companyName}
               </Table.Cell>
+              <Table.Cell>{company.companyWebsite}</Table.Cell>
+              <Table.Cell>{company.email}</Table.Cell>
               <Table.Cell>
-                {TextEditorService.capitalize(jobPosting.position.positionName)}
+                <Link to={`/companies/${company.userId}`}>
+                  <Button icon={'magnify'} />
+                </Link>
               </Table.Cell>
-              <Table.Cell>{jobPosting.city.cityName}</Table.Cell>
-              <Table.Cell>{jobPosting.description}</Table.Cell>
-              <Table.Cell>₺{jobPosting.minWage}</Table.Cell>
             </Table.Row>
           ))}
         </Table.Body>
@@ -65,3 +66,5 @@ export default function JobsList() {
     </>
   );
 }
+
+export default CompaniesList;
