@@ -26,7 +26,7 @@ For all requirements in our HRMS system;
 
 ![SS of Structure](umlchart.png)
 
-# Gun 9 Odev 1
+# Gun 11 Odev 1
 
 ## Gereklilikler
 
